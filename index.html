@@ -43,8 +43,6 @@
   .account-stats{margin-left:auto;display:flex;gap:28px;text-align:center}
   .stat-val{font-size:20px;font-weight:700}
   .stat-lbl{font-size:11px;color:var(--muted);margin-top:2px}
-  .stat-delta{font-size:11px;margin-top:2px}
-  .delta-up{color:var(--green)} .delta-down{color:var(--red)}
   .disconnect-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer;margin-left:12px}
   .disconnect-btn:hover{border-color:var(--red);color:var(--red)}
   .section-title{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
@@ -88,10 +86,20 @@
   .btn-primary{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;background:var(--accent-bg);border:1px solid var(--accent);color:var(--accent);transition:all .2s}
   .btn-primary:hover{background:var(--accent);color:white}
   .posts-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:24px}
-  .posts-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+  .posts-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
   .posts-head h3{font-size:14px;font-weight:600}
+  .date-filter{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .date-filter label{font-size:12px;color:var(--muted)}
+  .date-input{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:5px 10px;border-radius:8px;font-size:12px;cursor:pointer}
+  .date-input:focus{outline:none;border-color:var(--accent)}
+  .filter-btn{padding:5px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;background:var(--accent);color:white;border:none;transition:opacity .2s}
+  .filter-btn:hover{opacity:.85}
+  .filter-clear{padding:5px 10px;border-radius:8px;font-size:12px;cursor:pointer;background:none;border:1px solid var(--border);color:var(--muted)}
+  .filter-clear:hover{border-color:var(--red);color:var(--red)}
   table{width:100%;border-collapse:collapse;font-size:13px}
-  th{padding:10px 16px;text-align:left;color:var(--muted);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;background:var(--surface2);border-bottom:1px solid var(--border)}
+  th{padding:10px 16px;text-align:left;color:var(--muted);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;background:var(--surface2);border-bottom:1px solid var(--border);cursor:pointer;white-space:nowrap;user-select:none}
+  th:hover{color:var(--text)}
+  th.sort-asc::after{content:' ↑'} th.sort-desc::after{content:' ↓'}
   td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text)}
   tr:last-child td{border-bottom:none}
   tr:hover td{background:var(--surface2)}
@@ -99,6 +107,35 @@
   .type-VIDEO{background:rgba(124,111,247,.15);color:#7c6ff7}
   .type-IMAGE{background:rgba(91,138,245,.15);color:#5b8af5}
   .type-CAROUSEL_ALBUM{background:rgba(251,191,36,.15);color:#fbbf24}
+  /* 媒體類型比較 */
+  .media-type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+  .mt-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 16px;text-align:center}
+  .mt-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:12px}
+  .mt-name{font-size:13px;font-weight:700;margin-bottom:14px}
+  .mt-stat{margin-bottom:8px}
+  .mt-stat-val{font-size:22px;font-weight:800;line-height:1}
+  .mt-stat-lbl{font-size:11px;color:var(--muted);margin-top:2px}
+  .mt-count{font-size:11px;color:var(--muted);margin-top:10px}
+  /* Hashtag */
+  .hashtag-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+  .ht-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;background:var(--surface);border:1px solid var(--border);cursor:default;transition:border-color .2s}
+  .ht-chip:hover{border-color:var(--accent)}
+  .ht-chip .ht-tag{color:var(--accent)}
+  .ht-chip .ht-reach{color:var(--muted);font-size:11px}
+  /* 最佳時機 heatmap */
+  .heatmap-wrap{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:24px;overflow-x:auto}
+  .heatmap-legend{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:12px;color:var(--muted)}
+  .heatmap-legend-bar{width:120px;height:8px;border-radius:4px;background:linear-gradient(to right,var(--surface2),var(--accent))}
+  .hm-table{border-collapse:collapse;min-width:600px}
+  .hm-table td,.hm-table th{padding:0}
+  .hm-day-label{font-size:11px;color:var(--muted);padding-right:10px;white-space:nowrap;font-weight:600}
+  .hm-cell{width:32px;height:28px;border-radius:4px;margin:2px;cursor:pointer;transition:transform .15s;position:relative}
+  .hm-cell:hover{transform:scale(1.2);z-index:10}
+  .hm-hour-label{font-size:10px;color:var(--muted);text-align:center;padding:4px 2px 0}
+  .hm-tooltip{position:fixed;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px;pointer-events:none;z-index:200;white-space:nowrap;display:none}
+  .best-time-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .best-chip{background:var(--accent-bg);border:1px solid var(--accent);color:var(--accent);padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700}
+  /* 粉絲成長 */
   .audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
   .aud-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
   .aud-card h3{font-size:14px;font-weight:600;margin-bottom:14px}
@@ -107,10 +144,6 @@
   .bar-bg{flex:1;height:6px;background:var(--border);border-radius:4px;overflow:hidden}
   .bar-fill{height:100%;border-radius:4px}
   .bar-val{width:40px;text-align:right;font-weight:600}
-  .heatmap{display:grid;grid-template-columns:repeat(24,1fr);gap:3px;margin-top:8px}
-  .heat-cell{aspect-ratio:1;border-radius:2px;cursor:default}
-  .heat-hours{display:grid;grid-template-columns:repeat(24,1fr);gap:3px;margin-top:4px}
-  .heat-h{font-size:8px;color:var(--muted);text-align:center}
   .tab-view{display:none} .tab-view.active{display:block}
   .loading-state,.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;gap:12px;color:var(--muted)}
   .loading-state .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
@@ -118,11 +151,11 @@
   .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface2);border:1px solid var(--border);padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:999;white-space:nowrap;display:flex;align-items:center;gap:8px}
   .toast.show{transform:translateX(-50%) translateY(0)}
   .mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);padding:8px 0 12px;z-index:100;justify-content:space-around}
-  .mob-item{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--muted);cursor:pointer;padding:4px 16px}
+  .mob-item{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--muted);cursor:pointer;padding:4px 12px}
   .mob-item.active{color:var(--accent)}
   .mob-item span{font-size:20px}
-  @media(max-width:900px){.dim-grid{grid-template-columns:repeat(3,1fr)}.overall-row,.charts-row{grid-template-columns:1fr}.audience-grid{grid-template-columns:1fr}}
-  @media(max-width:600px){.dim-grid{grid-template-columns:repeat(2,1fr)}.account-stats{width:100%;justify-content:space-around}.nav-tabs{display:none}main{padding:16px 14px 80px}.mobile-nav{display:flex}}
+  @media(max-width:900px){.dim-grid{grid-template-columns:repeat(3,1fr)}.overall-row,.charts-row{grid-template-columns:1fr}.audience-grid{grid-template-columns:1fr}.media-type-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.dim-grid{grid-template-columns:repeat(2,1fr)}.account-stats{width:100%;justify-content:space-around}.nav-tabs{display:none}main{padding:16px 14px 80px}.mobile-nav{display:flex}.media-type-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -132,6 +165,7 @@
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="switchTab('dashboard',this)">總覽</button>
     <button class="nav-tab" onclick="switchTab('analytics',this)">數據分析</button>
+    <button class="nav-tab" onclick="switchTab('besttimes',this)">最佳時機</button>
     <button class="nav-tab" onclick="switchTab('recommendations',this)">建議</button>
     <button class="nav-tab" onclick="switchTab('audience',this)">受眾</button>
   </div>
@@ -148,8 +182,10 @@
   </div>
 
   <div id="main-content" style="display:none">
+
+    <!-- ── 總覽 ── -->
     <div class="tab-view active" id="tab-dashboard">
-      <div class="account-header" id="account-header">
+      <div class="account-header">
         <div class="avatar" id="avatar">?</div>
         <div class="account-info">
           <h2 id="acct-username">載入中...</h2>
@@ -191,11 +227,11 @@
         <div class="loading-state" style="grid-column:1/-1;padding:30px"><div class="spinner"></div></div>
       </div>
 
-      <div class="section-title">近 30 天趨勢</div>
+      <div class="section-title">趨勢</div>
       <div class="charts-row">
         <div class="chart-card">
           <h3>整體分數走勢</h3>
-          <p class="chart-sub">過去 30 天健康度</p>
+          <p class="chart-sub">歷史健康度</p>
           <canvas id="trendChart" style="max-height:160px"></canvas>
         </div>
         <div class="chart-card">
@@ -209,19 +245,72 @@
       <div id="recs-preview"></div>
     </div>
 
+    <!-- ── 數據分析 ── -->
     <div class="tab-view" id="tab-analytics">
+
+      <!-- 媒體類型比較 -->
+      <div class="section-title">媒體類型表現比較</div>
+      <div class="media-type-grid" id="media-type-grid">
+        <div class="loading-state" style="grid-column:1/-1;padding:30px"><div class="spinner"></div></div>
+      </div>
+
+      <!-- 貼文表現 -->
       <div class="section-title">貼文表現</div>
       <div class="posts-card">
-        <div class="posts-head"><h3>近期貼文</h3></div>
+        <div class="posts-head">
+          <h3>所有貼文 <span id="posts-count" style="color:var(--muted);font-weight:400;font-size:12px"></span></h3>
+          <div class="date-filter">
+            <label>從</label>
+            <input class="date-input" type="date" id="date-since" onchange="applyDateFilter()">
+            <label>到</label>
+            <input class="date-input" type="date" id="date-until" onchange="applyDateFilter()">
+            <button class="filter-clear" onclick="clearDateFilter()">清除</button>
+          </div>
+        </div>
         <div id="posts-container"><div class="loading-state"><div class="spinner"></div></div></div>
+      </div>
+
+      <!-- Hashtag 分析 -->
+      <div class="section-title">Hashtag 分析 <span style="font-size:11px;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">（依平均觸及排序）</span></div>
+      <div id="hashtag-content">
+        <div class="loading-state"><div class="spinner"></div></div>
       </div>
     </div>
 
+    <!-- ── 最佳時機 ── -->
+    <div class="tab-view" id="tab-besttimes">
+      <div class="section-title">最佳發文時間</div>
+      <div class="heatmap-wrap">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px">
+          <div>
+            <h3 style="font-size:14px;font-weight:600;margin-bottom:4px">互動率熱力圖</h3>
+            <p style="font-size:12px;color:var(--muted)">顏色越深 = 該時段貼文互動率越高（基於你的歷史數據）</p>
+          </div>
+          <div class="heatmap-legend">
+            <span>低</span><div class="heatmap-legend-bar"></div><span>高</span>
+          </div>
+        </div>
+        <div id="best-time-recommendation" style="margin-bottom:16px"></div>
+        <div id="heatmap-container">
+          <div class="loading-state"><div class="spinner"></div></div>
+        </div>
+      </div>
+
+      <div class="section-title">媒體類型效益圖表</div>
+      <div class="chart-card" style="margin-bottom:24px">
+        <h3>各類型平均觸及 vs 互動率</h3>
+        <p class="chart-sub">比較 Reels、圖片、輪播的表現</p>
+        <canvas id="mediaTypeChart" style="max-height:200px"></canvas>
+      </div>
+    </div>
+
+    <!-- ── 建議 ── -->
     <div class="tab-view" id="tab-recommendations">
       <div class="section-title">本週建議</div>
       <div id="recs-full"><div class="loading-state"><div class="spinner"></div></div></div>
     </div>
 
+    <!-- ── 受眾 ── -->
     <div class="tab-view" id="tab-audience">
       <div class="section-title">受眾分析</div>
       <div class="audience-grid" id="audience-content">
@@ -234,16 +323,22 @@
 <div class="mobile-nav">
   <div class="mob-item active" onclick="switchTabMobile('dashboard',this)"><span>📊</span>總覽</div>
   <div class="mob-item" onclick="switchTabMobile('analytics',this)"><span>📈</span>數據</div>
+  <div class="mob-item" onclick="switchTabMobile('besttimes',this)"><span>⏰</span>時機</div>
   <div class="mob-item" onclick="switchTabMobile('recommendations',this)"><span>💡</span>建議</div>
   <div class="mob-item" onclick="switchTabMobile('audience',this)"><span>👥</span>受眾</div>
 </div>
 
+<div class="hm-tooltip" id="hm-tooltip"></div>
 <div class="toast" id="toast"></div>
 
 <script>
 const API = 'https://inkstats-backend-production.up.railway.app';
-let radarChart, trendChart, growthChart, ageChart;
+let radarChart, trendChart, growthChart, mediaTypeChart;
 let currentAccount = null;
+let allPostsCache = [];
+let sortState = { col: 'timestamp', dir: 'desc' };
+
+// ── Init ──────────────────────────────────────────────────────────────────
 
 async function init() {
   const params = new URLSearchParams(window.location.search);
@@ -266,11 +361,13 @@ async function loadAccount() {
     currentAccount = acct;
     showMainContent(acct);
     await Promise.all([loadHealthScore(), loadRecsPreview()]);
-  } catch (e) {
+  } catch(e) {
     showConnectScreen();
     showToast('⚠️ 無法連線後端');
   }
 }
+
+// ── Auth ──────────────────────────────────────────────────────────────────
 
 function connectIG() {
   const popup = window.open(`${API}/auth/ig/login`, '_blank', 'width=600,height=700');
@@ -295,6 +392,8 @@ async function disconnectIG() {
   showConnectScreen();
   showToast('已斷開帳號連結');
 }
+
+// ── UI helpers ────────────────────────────────────────────────────────────
 
 function showConnectScreen() {
   document.getElementById('connect-screen').style.display = 'flex';
@@ -322,6 +421,60 @@ function showMainContent(acct) {
   `;
 }
 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-view').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  onTabEnter(name);
+}
+
+function switchTabMobile(name, el) {
+  document.querySelectorAll('.mob-item').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  // sync desktop tabs
+  const tabs = document.querySelectorAll('.nav-tab');
+  const order = ['dashboard','analytics','besttimes','recommendations','audience'];
+  const idx = order.indexOf(name);
+  tabs.forEach(t => t.classList.remove('active'));
+  if (tabs[idx]) tabs[idx].classList.add('active');
+  switchTab(name, null);
+}
+
+function onTabEnter(name) {
+  if (name === 'analytics') { loadPosts(); loadMediaTypes(); loadHashtags(); }
+  if (name === 'besttimes') { loadBestTimes(); loadMediaTypeChart(); }
+  if (name === 'recommendations') loadRecsFull();
+  if (name === 'audience') loadAudience();
+}
+
+// ── Sync ──────────────────────────────────────────────────────────────────
+
+async function triggerSync() {
+  const btn = document.getElementById('sync-btn');
+  btn.disabled = true;
+  btn.textContent = '同步中...';
+  showToast('⏳ 正在抓取所有歷史數據，請稍候...');
+  try {
+    const res = await fetch(`${API}/api/sync`, { method: 'POST' });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.detail || '同步失敗');
+    showToast(`✅ 同步完成！共抓取 ${json.synced_posts} 篇貼文`);
+    // 重新載入所有區塊
+    await loadAccount();
+    loadPosts();
+    loadMediaTypes();
+    loadHashtags();
+  } catch(e) {
+    showToast('❌ 同步失敗：' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '↻ 同步';
+  }
+}
+
+// ── Health Score ──────────────────────────────────────────────────────────
+
 async function loadHealthScore() {
   const [scoreRes, histRes] = await Promise.all([
     fetch(`${API}/api/health-score`),
@@ -329,7 +482,7 @@ async function loadHealthScore() {
   ]);
   if (!scoreRes.ok) {
     document.getElementById('dim-grid').innerHTML =
-      '<div class="empty-state" style="grid-column:1/-1">尚無評分數據，請點「↻ 同步」取得最新數據</div>';
+      '<div class="empty-state" style="grid-column:1/-1">尚無評分數據，請點「↻ 同步」</div>';
     return;
   }
   const score = await scoreRes.json();
@@ -377,7 +530,7 @@ function renderDimensions(score) {
       <div class="dim-name">${d.name}</div>
       <div class="dim-score" style="color:${scoreColor}">${val}</div>
       <div class="dim-bar-bg"><div class="dim-bar-fill" style="width:0%;background:${d.color}" data-w="${val}%"></div></div>
-      <div class="dim-trend trend-flat">→ 持平</div>
+      <div class="dim-trend trend-flat">— / 100</div>
     </div>`;
   }).join('');
   setTimeout(() => document.querySelectorAll('.dim-bar-fill').forEach(el => el.style.width = el.dataset.w), 100);
@@ -390,7 +543,7 @@ function renderRadar(score) {
     data: {
       labels: DIM_CONFIG.map(d => d.name),
       datasets: [{
-        label: '本週', borderColor: '#7c6ff7', backgroundColor: 'rgba(124,111,247,.15)',
+        label: '健康度', borderColor: '#7c6ff7', backgroundColor: 'rgba(124,111,247,.15)',
         pointBackgroundColor: '#7c6ff7', pointRadius: 4,
         data: DIM_CONFIG.map(d => Math.round(score[d.key + '_score'] ?? 0)),
       }]
@@ -416,7 +569,7 @@ function renderTrendChart(hist) {
         backgroundColor: 'rgba(124,111,247,.1)', fill: true, tension: .4, pointRadius: 0, borderWidth: 2}]},
     options: { responsive: true, plugins: {legend:{display:false}},
       scales: {
-        x: {ticks:{color:'#7b82a0',font:{size:10},maxTicksLimit:6}, grid:{color:'rgba(46,51,80,.4)'}},
+        x: {ticks:{color:'#7b82a0',font:{size:10},maxTicksLimit:8}, grid:{color:'rgba(46,51,80,.4)'}},
         y: {min:0, max:100, ticks:{color:'#7b82a0',font:{size:10}}, grid:{color:'rgba(46,51,80,.4)'}},
       }}
   });
@@ -435,19 +588,262 @@ async function renderGrowthChart() {
           backgroundColor: 'rgba(124,111,247,.6)', borderRadius: 3, borderSkipped: false}]},
       options: { responsive: true, plugins: {legend:{display:false}},
         scales: {
-          x: {ticks:{color:'#7b82a0',font:{size:10},maxTicksLimit:6}, grid:{display:false}},
+          x: {ticks:{color:'#7b82a0',font:{size:10},maxTicksLimit:8}, grid:{display:false}},
           y: {ticks:{color:'#7b82a0',font:{size:10}}, grid:{color:'rgba(46,51,80,.4)'}},
         }}
     });
   } catch(e) {}
 }
 
+// ── Posts ─────────────────────────────────────────────────────────────────
+
+async function loadPosts(since, until) {
+  const container = document.getElementById('posts-container');
+  container.innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
+  try {
+    let url = `${API}/api/analytics/posts?sort_by=${sortState.col}&sort_dir=${sortState.dir}`;
+    if (since) url += `&since=${since}`;
+    if (until) url += `&until=${until}`;
+    const res = await fetch(url);
+    const posts = res.ok ? await res.json() : [];
+    allPostsCache = posts;
+    document.getElementById('posts-count').textContent = `（${posts.length} 篇）`;
+    if (!posts.length) { container.innerHTML = '<div class="empty-state">尚無貼文數據，請先同步</div>'; return; }
+    renderPostsTable(posts);
+  } catch(e) { container.innerHTML = '<div class="empty-state">載入失敗</div>'; }
+}
+
+function renderPostsTable(posts) {
+  const container = document.getElementById('posts-container');
+  const mkTh = (label, col) => {
+    const cls = sortState.col === col ? ' sort-' + sortState.dir : '';
+    return `<th class="${cls}" onclick="sortPosts('${col}')">${label}</th>`;
+  };
+  container.innerHTML = `<table><thead><tr>
+    ${mkTh('內容','caption')}
+    <th>類型</th>
+    ${mkTh('發文日期','timestamp')}
+    ${mkTh('觸及','reach')}
+    ${mkTh('互動率','engagement_rate')}
+    ${mkTh('儲存','saved')}
+  </tr></thead><tbody>
+  ${posts.map(p => {
+    const eng = p.reach > 0 ? (((p.like_count||0)+(p.comments_count||0))/p.reach*100).toFixed(1) : '0.0';
+    return `<tr onclick="window.open('${p.permalink||'#'}','_blank')" style="cursor:pointer">
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.caption||'（無文案）'}</td>
+      <td><span class="type-badge type-${p.media_type}">${fmtType(p.media_type)}</span></td>
+      <td style="color:var(--muted)">${(p.timestamp||'').toString().slice(0,10)}</td>
+      <td>${fmt(p.reach)}</td>
+      <td style="color:${eng>=5?'var(--green)':eng>=3?'var(--yellow)':'var(--red)'};font-weight:600">${eng}%</td>
+      <td style="color:var(--muted)">${fmt(p.saved)}</td>
+    </tr>`;
+  }).join('')}
+  </tbody></table>`;
+}
+
+function sortPosts(col) {
+  if (sortState.col === col) {
+    sortState.dir = sortState.dir === 'desc' ? 'asc' : 'desc';
+  } else {
+    sortState.col = col;
+    sortState.dir = 'desc';
+  }
+  const since = document.getElementById('date-since').value;
+  const until = document.getElementById('date-until').value;
+  loadPosts(since || null, until || null);
+}
+
+function applyDateFilter() {
+  const since = document.getElementById('date-since').value;
+  const until = document.getElementById('date-until').value;
+  loadPosts(since || null, until || null);
+}
+
+function clearDateFilter() {
+  document.getElementById('date-since').value = '';
+  document.getElementById('date-until').value = '';
+  loadPosts();
+}
+
+// ── Media Types ───────────────────────────────────────────────────────────
+
+async function loadMediaTypes() {
+  const grid = document.getElementById('media-type-grid');
+  try {
+    const res = await fetch(`${API}/api/analytics/media-types`);
+    const data = res.ok ? await res.json() : [];
+    if (!data.length) { grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1">尚無數據</div>'; return; }
+
+    const typeMap = {
+      'VIDEO':          { label:'Reels / 影片', color:'#7c6ff7', bg:'rgba(124,111,247,.15)' },
+      'IMAGE':          { label:'圖片',         color:'#5b8af5', bg:'rgba(91,138,245,.15)' },
+      'CAROUSEL_ALBUM': { label:'輪播',         color:'#fbbf24', bg:'rgba(251,191,36,.15)' },
+    };
+
+    grid.innerHTML = data.map(d => {
+      const m = typeMap[d.media_type] || { label: d.media_type, color:'#7b82a0', bg:'rgba(123,130,160,.15)' };
+      return `<div class="mt-card">
+        <span class="mt-badge" style="background:${m.bg};color:${m.color}">${m.label}</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px">
+          <div class="mt-stat"><div class="mt-stat-val" style="color:${m.color}">${fmt(d.avg_reach)}</div><div class="mt-stat-lbl">平均觸及</div></div>
+          <div class="mt-stat"><div class="mt-stat-val">${d.engagement_rate}%</div><div class="mt-stat-lbl">互動率</div></div>
+          <div class="mt-stat"><div class="mt-stat-val">${fmt(d.avg_saved)}</div><div class="mt-stat-lbl">平均儲存</div></div>
+        </div>
+        <div class="mt-count">${d.count} 篇貼文</div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1">載入失敗</div>';
+  }
+}
+
+// ── Hashtags ──────────────────────────────────────────────────────────────
+
+async function loadHashtags() {
+  const el = document.getElementById('hashtag-content');
+  try {
+    const res = await fetch(`${API}/api/analytics/hashtags`);
+    const data = res.ok ? await res.json() : [];
+    if (!data.length) { el.innerHTML = '<div class="empty-state">無 Hashtag 數據</div>'; return; }
+
+    // 找最大觸及做色階
+    const maxReach = Math.max(...data.map(d => d.avg_reach), 1);
+
+    el.innerHTML = `<div class="hashtag-grid">${data.map(d => {
+      const intensity = d.avg_reach / maxReach;
+      const alpha = 0.15 + intensity * 0.45;
+      return `<div class="ht-chip" title="平均觸及：${fmt(d.avg_reach)}｜互動率：${d.engagement_rate}%｜使用 ${d.count} 次"
+        style="border-color:rgba(124,111,247,${alpha})">
+        <span class="ht-tag">#${d.tag}</span>
+        <span class="ht-reach">${fmt(d.avg_reach)} 觸及</span>
+      </div>`;
+    }).join('')}</div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">顏色越深 = 使用該 hashtag 的貼文平均觸及越高</p>`;
+  } catch(e) {
+    el.innerHTML = '<div class="empty-state">載入失敗</div>';
+  }
+}
+
+// ── Best Times Heatmap ────────────────────────────────────────────────────
+
+const DAY_LABELS = ['週一','週二','週三','週四','週五','週六','週日'];
+
+async function loadBestTimes() {
+  const container = document.getElementById('heatmap-container');
+  try {
+    const res = await fetch(`${API}/api/analytics/best-times`);
+    const data = res.ok ? await res.json() : [];
+    if (!data.length || data.every(d => d.post_count === 0)) {
+      container.innerHTML = '<div class="empty-state">尚無足夠數據，同步後再查看</div>';
+      return;
+    }
+
+    const maxEng = Math.max(...data.map(d => d.avg_engagement_rate), 0.01);
+
+    // 找出前 3 個最佳時段
+    const top = [...data].filter(d => d.post_count > 0)
+      .sort((a, b) => b.avg_engagement_rate - a.avg_engagement_rate)
+      .slice(0, 3);
+
+    document.getElementById('best-time-recommendation').innerHTML =
+      `<div class="best-time-chips">${top.map(t =>
+        `<span class="best-chip">⭐ ${DAY_LABELS[t.day]} ${t.hour}:00</span>`
+      ).join('')}</div>`;
+
+    // Build table
+    let html = `<table class="hm-table"><thead><tr>
+      <th class="hm-day-label"></th>
+      ${Array.from({length:24},(_,h)=>`<td class="hm-hour-label">${h}</td>`).join('')}
+    </tr></thead><tbody>`;
+
+    for (let dow = 0; dow < 7; dow++) {
+      html += `<tr><td class="hm-day-label">${DAY_LABELS[dow]}</td>`;
+      for (let h = 0; h < 24; h++) {
+        const cell = data.find(d => d.day === dow && d.hour === h) || {};
+        const rate = cell.avg_engagement_rate || 0;
+        const count = cell.post_count || 0;
+        const intensity = rate / maxEng;
+        const bg = intensity > 0
+          ? `rgba(124,111,247,${0.08 + intensity * 0.82})`
+          : 'var(--surface2)';
+        const tip = count > 0
+          ? `${DAY_LABELS[dow]} ${h}:00｜互動率 ${rate.toFixed(2)}%｜${count} 篇貼文`
+          : `${DAY_LABELS[dow]} ${h}:00｜無數據`;
+        html += `<td><div class="hm-cell" style="background:${bg}"
+          onmouseenter="showHmTip(event,'${tip}')" onmouseleave="hideHmTip()"></div></td>`;
+      }
+      html += '</tr>';
+    }
+    html += '</tbody></table>';
+    container.innerHTML = html;
+  } catch(e) {
+    container.innerHTML = '<div class="empty-state">載入失敗</div>';
+  }
+}
+
+function showHmTip(e, text) {
+  const tip = document.getElementById('hm-tooltip');
+  tip.textContent = text;
+  tip.style.display = 'block';
+  tip.style.left = (e.clientX + 12) + 'px';
+  tip.style.top = (e.clientY - 36) + 'px';
+}
+function hideHmTip() {
+  document.getElementById('hm-tooltip').style.display = 'none';
+}
+
+async function loadMediaTypeChart() {
+  if (mediaTypeChart) mediaTypeChart.destroy();
+  try {
+    const res = await fetch(`${API}/api/analytics/media-types`);
+    const data = res.ok ? await res.json() : [];
+    if (!data.length) return;
+
+    const typeMap = { 'VIDEO':'Reels/影片', 'IMAGE':'圖片', 'CAROUSEL_ALBUM':'輪播' };
+    const colors = ['#7c6ff7','#5b8af5','#fbbf24','#34d399'];
+
+    mediaTypeChart = new Chart(document.getElementById('mediaTypeChart'), {
+      type: 'bar',
+      data: {
+        labels: data.map(d => typeMap[d.media_type] || d.media_type),
+        datasets: [
+          {
+            label: '平均觸及',
+            data: data.map(d => d.avg_reach),
+            backgroundColor: data.map((_, i) => colors[i % colors.length] + 'aa'),
+            borderColor: data.map((_, i) => colors[i % colors.length]),
+            borderWidth: 1, borderRadius: 6, yAxisID: 'y1',
+          },
+          {
+            label: '互動率 %',
+            data: data.map(d => d.engagement_rate),
+            backgroundColor: 'rgba(52,211,153,.2)',
+            borderColor: '#34d399',
+            borderWidth: 2, borderRadius: 6, type: 'line', yAxisID: 'y2',
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { labels: { color:'#e8eaf0', font:{size:12} } } },
+        scales: {
+          x: { ticks:{color:'#7b82a0'}, grid:{display:false} },
+          y1: { position:'left', ticks:{color:'#7b82a0'}, grid:{color:'rgba(46,51,80,.4)'}, title:{display:true,text:'觸及',color:'#7b82a0'} },
+          y2: { position:'right', ticks:{color:'#34d399'}, grid:{display:false}, title:{display:true,text:'互動率%',color:'#34d399'} },
+        }
+      }
+    });
+  } catch(e) {}
+}
+
+// ── Recommendations ───────────────────────────────────────────────────────
+
 async function loadRecsPreview() {
   const recs = await fetchRecs();
   const el = document.getElementById('recs-preview');
   if (!recs.length) { el.innerHTML = '<div class="empty-state">帳號狀態良好，目前沒有建議 🎉</div>'; return; }
   el.innerHTML = renderRecCards(recs.slice(0, 2));
-  el.innerHTML += `<button class="btn-ghost" onclick="switchTab('recommendations',document.querySelectorAll('.nav-tab')[2])" style="width:100%;padding:10px;margin-top:4px">查看全部建議 →</button>`;
+  el.innerHTML += `<button class="btn-ghost" onclick="switchTab('recommendations',document.querySelectorAll('.nav-tab')[3])" style="width:100%;padding:10px;margin-top:4px">查看全部建議 →</button>`;
 }
 
 async function loadRecsFull() {
@@ -481,93 +877,64 @@ function dismissRec(id) {
   if (el) { el.style.opacity = '0'; el.style.transition = 'opacity .3s'; setTimeout(() => el.remove(), 300); }
 }
 
-async function loadPosts() {
-  const container = document.getElementById('posts-container');
-  container.innerHTML = '<div class="loading-state"><div class="spinner"></div></div>';
-  try {
-    const res = await fetch(`${API}/api/analytics/posts`);
-    const posts = res.ok ? await res.json() : [];
-    if (!posts.length) { container.innerHTML = '<div class="empty-state">尚無貼文數據，請先同步</div>'; return; }
-    container.innerHTML = `<table><thead><tr>
-      <th>內容</th><th>類型</th><th>發文日期</th><th>觸及</th><th>互動率</th><th>儲存</th>
-    </tr></thead><tbody>
-    ${posts.map(p => {
-      const eng = p.reach > 0 ? (((p.like_count||0)+(p.comments_count||0))/p.reach*100).toFixed(1) : '0.0';
-      return `<tr onclick="window.open('${p.permalink||'#'}','_blank')" style="cursor:pointer">
-        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.caption||'（無文案）'}</td>
-        <td><span class="type-badge type-${p.media_type}">${fmtType(p.media_type)}</span></td>
-        <td style="color:var(--muted)">${(p.timestamp||'').slice(5,10)}</td>
-        <td>${fmt(p.reach)}</td>
-        <td style="color:${eng>=5?'var(--green)':eng>=3?'var(--yellow)':'var(--red)'};font-weight:600">${eng}%</td>
-        <td style="color:var(--muted)">${fmt(p.saved)}</td>
-      </tr>`;}).join('')}
-    </tbody></table>`;
-  } catch(e) { container.innerHTML = '<div class="empty-state">載入失敗</div>'; }
-}
+// ── Audience ──────────────────────────────────────────────────────────────
 
 async function loadAudience() {
-  const container = document.getElementById('audience-content');
+  const el = document.getElementById('audience-content');
   try {
     const res = await fetch(`${API}/api/audience`);
-    if (!res.ok) { container.innerHTML = '<div class="empty-state" style="grid-column:1/-1">受眾數據需要至少 100 位粉絲且完成同步</div>'; return; }
-    const aud = await res.json();
-    if (!aud || aud.error) { container.innerHTML = '<div class="empty-state" style="grid-column:1/-1">尚無受眾數據</div>'; return; }
-    container.innerHTML = '<div class="aud-card" style="grid-column:1/-1"><h3>受眾數據</h3><pre style="color:var(--muted);font-size:12px;overflow:auto">' + JSON.stringify(aud, null, 2) + '</pre></div>';
-  } catch(e) { container.innerHTML = '<div class="empty-state" style="grid-column:1/-1">載入失敗</div>'; }
+    if (!res.ok) { el.innerHTML = '<div class="empty-state" style="grid-column:1/-1">受眾數據需要帳號有足夠粉絲數才能取得</div>'; return; }
+    const data = await res.json();
+    const breakdowns = data.data || [];
+    if (!breakdowns.length) { el.innerHTML = '<div class="empty-state" style="grid-column:1/-1">尚無受眾數據</div>'; return; }
+
+    el.innerHTML = breakdowns.map(b => {
+      const title = b.name === 'follower_demographics' ? (b.breakdown || '受眾') : b.name;
+      const values = b.total_value?.breakdowns?.[0]?.results || [];
+      const total = values.reduce((s, v) => s + (v.value || 0), 0) || 1;
+      const top = [...values].sort((a,b) => b.value - a.value).slice(0, 8);
+      return `<div class="aud-card"><h3>${title}</h3>
+        ${top.map(v => `<div class="bar-row">
+          <span class="bar-label">${v.dimension_values?.join(' ') || v.dimension_value || '-'}</span>
+          <div class="bar-bg"><div class="bar-fill" style="width:${(v.value/total*100).toFixed(1)}%;background:var(--accent)"></div></div>
+          <span class="bar-val">${(v.value/total*100).toFixed(0)}%</span>
+        </div>`).join('')}
+      </div>`;
+    }).join('');
+  } catch(e) {
+    el.innerHTML = '<div class="empty-state" style="grid-column:1/-1">載入失敗</div>';
+  }
 }
 
-async function triggerSync() {
-  const btn = document.getElementById('sync-btn');
-  btn.textContent = '↻ 同步中…'; btn.disabled = true;
-  showToast('正在從 Instagram 拉取最新數據...');
-  try {
-    const res = await fetch(`${API}/api/sync`, {method:'POST'});
-    const json = await res.json();
-    if (!res.ok) throw new Error(json.detail || '同步失敗');
-    showToast('✅ 同步完成！健康度已重新計算');
-    await Promise.all([loadAccount(), loadHealthScore(), loadRecsPreview()]);
-    if (document.getElementById('tab-analytics').classList.contains('active')) loadPosts();
-    if (document.getElementById('tab-audience').classList.contains('active')) loadAudience();
-    if (document.getElementById('tab-recommendations').classList.contains('active')) loadRecsFull();
-  } catch(e) { showToast('❌ 同步失敗：' + e.message); }
-  finally { btn.textContent = '↻ 同步'; btn.disabled = false; }
+// ── Utils ─────────────────────────────────────────────────────────────────
+
+function fmt(n) {
+  if (n == null || n === 0) return '0';
+  if (n >= 10000) return (n/1000).toFixed(1) + 'k';
+  if (n >= 1000) return (n/1000).toFixed(1) + 'k';
+  return n.toString();
 }
 
-function switchTab(tabId, btn) {
-  document.querySelectorAll('.tab-view').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('tab-'+tabId).classList.add('active');
-  if (btn) btn.classList.add('active');
-  if (tabId === 'analytics') loadPosts();
-  if (tabId === 'recommendations') loadRecsFull();
-  if (tabId === 'audience') loadAudience();
+function fmtType(t) {
+  if (t === 'VIDEO') return 'Reels';
+  if (t === 'IMAGE') return '圖片';
+  if (t === 'CAROUSEL_ALBUM') return '輪播';
+  return t || '-';
 }
 
-function switchTabMobile(tabId, el) {
-  const map = {dashboard:0,analytics:1,recommendations:2,audience:3};
-  document.querySelectorAll('.mob-item').forEach(i=>i.classList.remove('active'));
-  el.classList.add('active');
-  const navBtns = document.querySelectorAll('.nav-tab');
-  navBtns.forEach(b=>b.classList.remove('active'));
-  if (navBtns[map[tabId]]) navBtns[map[tabId]].classList.add('active');
-  switchTab(tabId, null);
+function formatTime(str) {
+  if (!str) return '';
+  const d = new Date(str);
+  return `${d.getMonth()+1}/${d.getDate()} ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
 }
 
 let toastTimer;
 function showToast(msg) {
   const el = document.getElementById('toast');
-  el.innerHTML = msg; el.classList.add('show');
+  el.textContent = msg;
+  el.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>el.classList.remove('show'), 4000);
-}
-function fmt(n) { return n != null ? Number(n).toLocaleString() : '—'; }
-function fmtType(t) { return {IMAGE:'圖片',VIDEO:'Reels',CAROUSEL_ALBUM:'輪播'}[t] || t; }
-function formatTime(iso) {
-  const d = new Date(iso), now = new Date();
-  const diffH = Math.round((now - d) / 3600000);
-  if (diffH < 1) return '剛才';
-  if (diffH < 24) return diffH + ' 小時前';
-  return Math.floor(diffH/24) + ' 天前';
+  toastTimer = setTimeout(() => el.classList.remove('show'), 4000);
 }
 
 init();
